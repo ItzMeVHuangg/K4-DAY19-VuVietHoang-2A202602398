@@ -89,7 +89,7 @@ def _openai_client(provider: str):
     from openai import OpenAI
 
     cfg = PROVIDERS[provider]
-    return OpenAI(api_key=os.environ[cfg["key"]], base_url=cfg["base_url"])
+    return OpenAI(api_key=os.environ[cfg["key"]], base_url=cfg["base_url"], max_retries=12)   # free tiers rate-limit per minute; the SDK honours Retry-After
 
 class MeteredLLM:
     """`chat` and `embed` are drop-in `llm_fn` / `embedding_fn`; `usage` accumulates across calls."""
